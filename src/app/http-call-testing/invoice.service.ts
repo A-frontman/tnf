@@ -15,15 +15,12 @@ export class InvoiceService {
 	getInvoices(userId: string) {
 		this.httpClient.get<HttpResponse<{ list: Invoice[] }>>(`${ environment.api }/${ userId }`).subscribe(
 			(response) => {
-				setTimeout(() => {
 
-					if (!response.body) {
-						throw 'INCORRECT_RESPONSE'
-					}
+				if (!response.body) {
+					throw 'INCORRECT_RESPONSE'
+				}
 
-					this.invoices = response.body.list;
-
-				}, 500)
+				this.invoices = response.body.list;
 			}
 		);
 	}
