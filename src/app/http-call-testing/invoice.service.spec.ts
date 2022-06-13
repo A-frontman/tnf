@@ -29,5 +29,4 @@ describe('InvoiceService', () => {
 
 		expect(service.invoices).toEqual([ { id: 1 }, { id: 4 } ])
 	});
-
 });
