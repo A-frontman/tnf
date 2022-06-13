@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from "@angular/common/http";
+import { environment } from "../../environments/environment";
 
 @Injectable({
 	providedIn: 'root'
@@ -11,8 +12,8 @@ export class InvoiceService {
 	constructor(private readonly httpClient: HttpClient) {
 	}
 
-	getInvoices(path: string) {
-		this.httpClient.get<HttpResponse<{ list: Invoice[] }>>(path).subscribe(
+	getInvoices(userId: string) {
+		this.httpClient.get<HttpResponse<{ list: Invoice[] }>>(`${environment.api}/${userId}`).subscribe(
 			(response) => {
 				if (!response.body) {
 					throw 'INCORRECT_RESPONSE'
@@ -25,8 +26,6 @@ export class InvoiceService {
 }
 
 
-interface Invoice {
+export interface Invoice {
 	id: number;
-	buyer: string;
-	seller: string;
 }
