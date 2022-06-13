@@ -29,4 +29,12 @@ describe('InvoiceService', () => {
 
 		expect(service.invoices).toEqual([ { id: 1 }, { id: 4 } ])
 	});
+
+	it('should throw INCORRECT_RESPONSE error, when there is no body in the response', () => {
+		expect(() => {
+			service.getInvoices(('1'))
+
+			response$.next(new HttpResponse())
+		}).toThrowError('INCORRECT_RESPONSE')
+	})
 });
