@@ -28,30 +28,58 @@ describe('FormComponent', () => {
 		fixture.detectChanges();
 	});
 
-	it('should not submit when form is not filled', () => {
-		// Given
-		const buttons = fixture.debugElement.queryAll(By.css('button'))
-		const submitButton = buttons[1];
+	describe('Wrong way', () => {
+		it('should not submit when form is not filled', () => {
+			// Given
+			const component = fixture.componentInstance;
 
-		submitButton.nativeElement.click();
-		fixture.detectChanges();
+			// When
+			component.confirmSubmit()
 
-		// Then
-		verify(formServiceMock.process()).never();
-	});
+			// Then
+			verify(formServiceMock.process()).never();
+		});
 
-	it('should submit when form is filled', () => {
-		// Given
-		const buttons = fixture.debugElement.queryAll(By.css('button'))
-		const fillFormButton = buttons[0];
-		const submitButton = buttons[1];
+		it('should submit when form is filled', () => {
+			// Given
+			const component = fixture.componentInstance;
 
-		// When
-		fillFormButton.nativeElement.click();
-		// fixture.detectChanges();
-		submitButton.nativeElement.click();
+			// When
+			component.enableSubmit()
+			component.confirmSubmit()
 
-		// Then
-		verify(formServiceMock.process()).once();
-	});
+			// Then
+			verify(formServiceMock.process()).never();
+		});
+	})
+
+	describe('Better way', () => {
+		it('should not submit when form is not filled', () => {
+			// Given
+			const buttons = fixture.debugElement.queryAll(By.css('button'))
+			const submitButton = buttons[1];
+
+			// When
+			submitButton.nativeElement.click();
+			fixture.detectChanges();
+
+			// Then
+			verify(formServiceMock.process()).never();
+		});
+
+		it('should submit when form is filled', () => {
+			// Given
+			const buttons = fixture.debugElement.queryAll(By.css('button'))
+			const fillFormButton = buttons[0];
+			const submitButton = buttons[1];
+
+			// When
+			fillFormButton.nativeElement.click();
+			// fixture.detectChanges();
+			submitButton.nativeElement.click();
+
+			// Then
+			verify(formServiceMock.process()).once();
+		});
+	})
 });
