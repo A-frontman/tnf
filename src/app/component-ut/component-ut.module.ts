@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StateComponent } from './state/state.component';
+import { FormComponent } from './state/form.component';
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 
 
 @NgModule({
 	declarations: [
-    StateComponent
-  ],
+		FormComponent
+	],
+	exports: [
+		FormComponent
+	],
 	imports: [
-		CommonModule
+		CommonModule,
+		MatButtonModule,
+		MatIconModule
 	]
 })
 export class ComponentUtModule {
